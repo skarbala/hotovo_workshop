@@ -1,6 +1,6 @@
 ---
-description: Prefer getByRole for Playwright element locators
-globs: "**/*.{spec,test}.{ts,js,tsx,jsx}"
+description: Playwright locator priority and test helper conventions
+globs: "**/*.{spec,test}.{ts,js,tsx,jsx},tests/utils/**/*.{ts,js}"
 alwaysApply: false
 ---
 
@@ -24,3 +24,16 @@ await page.locator('[data-test="get-quote"]').click();
 ```
 
 Prefer accessible names and roles so tests mirror how users find the UI.
+
+# Test Helpers
+
+Keep helper methods (formatters, shared data builders, etc.) in `tests/utils/`. Do not define them inline in spec files.
+
+```typescript
+// ❌ BAD — helper inside the spec
+const formatCurrency = (value: string | number) =>
+  new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(Number(value));
+
+// ✅ GOOD — import from utils
+import { formatCurrency } from "./utils/formatCurrency";
+```

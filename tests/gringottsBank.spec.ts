@@ -1,7 +1,34 @@
-//overime ze sa nam zobrazi offer aj s datami
-//1. otvorime stranku -> Samostatne
-//2. vyberieme fond -> Samostatne
-//3. zadame investiciu -> Samostatne, metoda .fill()
-//4 zadame pocet rokov -> samostatne, metoda .fill()
-//5. potvrdime -> samostatne
-//6. overime ze sa nam data spravne zobrazili (Fond) -> spolu si to prejdeme cele
+import test, { expect } from '@playwright/test'
+import { formatCurrency } from './utils/formatCurrency'
+
+test.describe('Gringotts Bank', async () => {
+    test('display correct offer data', async ({ page }) => {
+        const investment = 1500000000
+        const years = 20000
+        const fund = 'Galleon Guardian Fund'
+
+        await test.step('Open page', async () => {
+            await page.goto('http://localhost:8080/#/gringottsBank')
+        })
+
+        await test.step('Enter investment data', async () => {
+            await page.locator('[id="selectedFund"]').selectOption(fund)
+            await page.locator('#oneTimeInvestment').fill(investment.toString())
+            await page.locator('#years').fill(years.toString())
+        })
+
+        await test.step('Submit investment data', async () => {
+            await page.getByRole('button', { name: 'Make me an offer' }).click()
+        })
+
+        await test.step('Check displayed data', async () => {
+            const offerDetail = page.locator('div.offer-detail')
+            await expect(offerDetail).toBeVisible()
+            await expect(offerDetail.locator('p.fund')).toContainText(fund)
+            await expect(offerDetail.locator('p.fund').locator('span')).toHaveText(fund)
+
+            await expect(offerDetail.locator('div.your-data').getByText('Investment').locator('span'))
+                .toHaveText(formatCurrency(investment))
+        })
+    })
+})
