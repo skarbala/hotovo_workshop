@@ -12,7 +12,9 @@ test.describe("Quote Generator", () => {
   });
 
   test("remove quote button is disabled on page open", async ({ page }) => {
-    await expect(page.getByRole("button", { name: "Remove Quote" })).toBeDisabled();
+    await expect(
+      page.getByRole("button", { name: "Remove Quote" }),
+    ).toBeDisabled();
   });
 
   test("wisdom points increase by 5 after five Get Quote clicks", async ({
@@ -21,12 +23,15 @@ test.describe("Quote Generator", () => {
     const numberOfClicks = 5;
     const getQuoteButton = page.getByRole("button", { name: "Get Quote" });
 
-
     for (let i = 0; i < numberOfClicks; i++) {
       await getQuoteButton.click();
-      await expect(page.locator('p[data-test="wisdom-points"]')).toContainText((i + 1).toString());
+      await expect(page.locator('p[data-test="wisdom-points"]')).toContainText(
+        (i + 1).toString(),
+      );
     }
-    await expect(page.locator('p[data-test="wisdom-points"]')).toContainText(numberOfClicks.toString());
+    await expect(page.locator('p[data-test="wisdom-points"]')).toContainText(
+      numberOfClicks.toString(),
+    );
   });
 
   test("empty list shows prompt message", async ({ page }) => {
@@ -34,5 +39,4 @@ test.describe("Quote Generator", () => {
       page.getByText("Click the button to get some wisdom"),
     ).toBeVisible();
   });
-
-})
+});
