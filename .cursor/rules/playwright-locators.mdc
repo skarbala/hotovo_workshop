@@ -10,7 +10,6 @@ When writing or updating Playwright tests, locate elements in this order:
 
 1. `page.getByRole()` — preferred default
 2. `page.getByLabel()` / `page.getByPlaceholder()` / `page.getByText()`
-3. `page.getByTestId()`
 4. CSS / XPath locators — last resort only
 
 ```typescript
