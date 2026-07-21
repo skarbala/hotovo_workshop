@@ -1,0 +1,27 @@
+---
+description: Prefer getByRole for Playwright element locators
+globs: "**/*.{spec,test}.{ts,js,tsx,jsx}"
+alwaysApply: false
+---
+
+# Playwright Locator Priority
+
+When writing or updating Playwright tests, locate elements in this order:
+
+1. `page.getByRole()` — preferred default
+2. `page.getByLabel()` / `page.getByPlaceholder()` / `page.getByText()`
+3. `page.getByTestId()`
+4. CSS / XPath locators — last resort only
+
+```typescript
+// ❌ BAD
+await page.locator("#remove-quote").click();
+
+// ✅ GOOD
+await page.getByRole("button", { name: "Remove Quote" }).click();
+await page.getByRole("button", { name: "Get Quote" }).click();
+await page.locator('[data-test="get-quote"]').click();
+
+```
+
+Prefer accessible names and roles so tests mirror how users find the UI.
