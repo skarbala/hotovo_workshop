@@ -18,10 +18,17 @@ test('returns all spells', async ({ request }) => {
 })
 
 test('returns spells by type', async ({ request }) => {
+    const expectedType = 'Charm'
     const response = await request.get('http://localhost:3000/spells', {
         params: {
-            type: 'Charm'
+            type: expectedType
         }
+    })
+    const body: Spell[] = await response.json()
+    expect(body.length).toBeGreaterThan(0)
+
+    body.forEach(item => {
+        expect(item.type).toEqual(expectedType)
     })
 })
 
