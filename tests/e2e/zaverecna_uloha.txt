@@ -1,0 +1,21 @@
+//ULOHA
+//napiste test -> uplne novy file
+//1. pripravite nove kuzlo pomocou API
+//2. otvorite stranku spells
+//3. vyhladate kuzlo pomocou filtra -> effekt kuzla
+//4. kliknete na kuzlo
+//5. overite nazov kuzla, typ a aj efekt
+
+Create following test
+1. create new spell using API, check that response status is in 2xx group
+2. open spelleology page
+3. use filter to find the spell by its effect
+4. verify that spell is visible in the list
+5. open spell detail
+6. verify that: spell effect, spell and type is visible
+
+rules
+- create new test file in new folder e2e tests
+- use the api call from spells.spec.ts file in api folder
+- use localhost as env
+- split the test into readable test.step() parts
