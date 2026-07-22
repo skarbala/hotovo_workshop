@@ -8,7 +8,7 @@ test.describe('Gringotts Bank', async () => {
         const fund = 'Galleon Guardian Fund'
 
         await test.step('Open page', async () => {
-            await page.goto('http://localhost:8080/#/gringottsBank')
+            await page.goto('/#/gringottsBank')
         })
 
         await test.step('Enter investment data', async () => {

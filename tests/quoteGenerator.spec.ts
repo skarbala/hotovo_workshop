@@ -2,7 +2,7 @@ import test, { expect } from "@playwright/test";
 
 test.describe("Quote Generator", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("http://localhost:8080/#/quotes");
+    await page.goto("/#/quotes");
   });
 
   test("it displays quote on button click", async ({ page }) => {
